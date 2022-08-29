@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from cogs import events
+from .cogs import events
 
 class Wafflebot:
     """

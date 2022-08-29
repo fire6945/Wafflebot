@@ -6,4 +6,5 @@ from bot.bot import Wafflebot
 
 dotenv.load_dotenv()
 token = os.getenv("TOKEN")
-Wafflebot(token).run()
+bot = Wafflebot(token)
+bot.run()
