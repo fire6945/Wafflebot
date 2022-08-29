@@ -23,5 +23,9 @@ class Events(commands.Cog):
     async def on_ready(self):
         print(f"{self.client.user} is alive")
 
+    @commands.Cog.listener()
+    async def on_member_join(self, member: discord.User):
+        pass
+
 def setup(client):
     client.add_cog(Events(client))
