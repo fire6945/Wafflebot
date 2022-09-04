@@ -20,14 +20,28 @@ class Events(commands.Cog):
 
     def __init__(self, client):
         self.client: commands.Bot = client
+        self.embeds = embed_builder.EmbedBuilder()
+        self.values = values.Values()
 
     @commands.Cog.listener()
     async def on_ready(self):
         print(f"{self.client.user} is alive")
 
     @commands.Cog.listener()
-    async def on_member_join(self, member: discord.User):
-        pass
+    async def on_message(self, message: discord.Message):
+        print(f"({message.guild.name}, {message.channel.name}) {message.author}: {message.content}")
+
+    @commands.Cog.listener()
+    async def on_member_join(self, member: discord.Member):
+        embed = self.embeds.member_join(member)
+        channel = self.client.get_channel(self.values.get_channel("welcome_and_goodbye"))
+        await channel.send(content=f"{member.mention}", embed=embed)
+
+    @commands.Cog.listener()
+    async def on_member_remove(self, member: discord.Member):
+        embed = self.embeds.member_remove(member)
+        channel = self.client.get_channel(self.values.get_channel("welcome_and_goodbye"))
+        await channel.send(embed=embed)
 
 def setup(client):
     client.add_cog(Events(client))
