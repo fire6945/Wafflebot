@@ -6,12 +6,12 @@ class Values:
     Works with config.json
     """
 
-    with open('C:\\Users\\jdev0\\PycharmProjects\\Wafflebot\\Wafflebot\\bot\\utility\\config.json', 'r') as f:
+    with open('config.json', 'r') as f:
         data = json.loads(f.read())
 
     @classmethod
     def save(cls):
-        with open('C:\\Users\\jdev0\\PycharmProjects\\Wafflebot\\Wafflebot\\bot\\utility\\config.json', 'w') as f:
+        with open('config.json', 'w') as f:
             f.write(cls.data)
 
     @classmethod
