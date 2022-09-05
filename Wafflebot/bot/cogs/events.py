@@ -29,7 +29,7 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
-        def check_for_badwords():
+        async def check_for_badwords():
             content = message.content.split(" ")
             badwords = self.values.get_badwords()
             if any([True for word in content if word.lower() in badwords]):
@@ -37,7 +37,8 @@ class Events(commands.Cog):
             else:
                 return False
 
-        if check_for_badwords():
+        b = await check_for_badwords()
+        if b:
             await message.reply("Some people may not be comfortable with the use of profanity, so please be careful with your words. Thank you!")
         else:
             print("Error with function check_for_badwords")
