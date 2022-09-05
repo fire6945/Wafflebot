@@ -56,5 +56,13 @@ class Events(commands.Cog):
         channel = self.client.get_channel(self.values.get_channel("welcome_and_goodbye"))
         await channel.send(embed=embed)
 
+    @commands.Cog.listener()
+    async def on_member_ban(self, guild, member):
+        pass
+
+    @commands.Cog.listener()
+    async def on_member_unban(self, guild, member):
+        pass
+
 def setup(client):
     client.add_cog(Events(client))
