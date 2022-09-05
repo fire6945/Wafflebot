@@ -14,6 +14,10 @@ class Values:
         with open('C:\\Users\\jdev0\\PycharmProjects\\Wafflebot\\Wafflebot\\bot\\utility\\config.json', 'w') as f:
             f.write(cls.data)
 
+    @classmethod
+    def get_prefix(cls):
+        return cls.data['prefix']
+
     # The four following methods deal with getting, setting and deleting badwords
     @classmethod
     def get_badwords(cls):

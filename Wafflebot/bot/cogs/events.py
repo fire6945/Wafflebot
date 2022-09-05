@@ -29,20 +29,28 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
+
+        # This section of code does bad word detection
         async def check_for_badwords():
             content = message.content.split(" ")
             badwords = self.values.get_badwords()
-            if any([True for word in content if word.lower() in badwords]):
+            if any([True for word in content if word.lower() in ["retard", "retarded", "nigger"]]):
+                pass # TODO: Write code to send a message to a moderation channel that reports a user using slurs
+            elif any([True for word in content if word.lower() in badwords]):
                 return True
-            else:
-                return False
 
         b = await check_for_badwords()
         if b:
             await message.reply("Some people may not be comfortable with the use of profanity, so please be careful with your words. Thank you!")
-        else:
-            print("Error with function check_for_badwords")
-        print(f"({message.guild.name}, {message.channel.name}) {message.author}: {message.content}")
+
+        # This section of code handles reports of bad behavior
+        if (message.content == "report") and (type(message.channel) == discord.DMChannel):
+            await message.channel.send("What would you like to report? Once you send your message, the administrators will automatically be notified. Please be as informative as possible with your answer.")
+            # TODO: Write code that sends the user's report to a moderation channel
+        try:
+            print(f"({message.guild.name}, {message.channel.name}) {message.author}: {message.content}")
+        except:
+            print(f"(DM with Wafflebot) {message.author}: {message.content}")
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
