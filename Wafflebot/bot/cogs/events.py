@@ -46,7 +46,10 @@ class Events(commands.Cog):
         # This section of code handles reports of bad behavior
         if (message.content == "report") and (type(message.channel) == discord.DMChannel):
             await message.channel.send("What would you like to report? Once you send your message, the administrators will automatically be notified. Please be as informative as possible with your answer.")
-            # TODO: Write code that sends the user's report to a moderation channel
+            msg = await self.client.wait_for('message')
+            embed = self.embeds.moderation([0, msg])
+            channel = self.client.get_channel(self.values.get_channel("moderation_log"))
+            await channel.send(embed=embed)
         try:
             print(f"({message.guild.name}, {message.channel.name}) {message.author}: {message.content}")
         except:

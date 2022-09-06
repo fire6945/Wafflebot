@@ -32,3 +32,13 @@ class EmbedBuilder:
             color=discord.Color.red()
         )
         return embed
+
+    def moderation(self, d):
+        if d[0] == 0:
+            msg = d[1]
+            embed = discord.Embed(title="Incident Report", description=msg.content, color=discord.Color.orange())
+            embed.set_author(name=msg.author, icon_url=msg.author.avatar_url)
+            return embed
+        elif d[0] == 1:
+            kb = d[1]
+            reason = d[2]
