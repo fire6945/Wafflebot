@@ -34,14 +34,16 @@ class Events(commands.Cog):
         async def check_for_badwords():
             content = message.content.split(" ")
             badwords = self.values.get_badwords()
-            if any([True for word in content if word.lower() in ["retard", "retarded", "nigger"]]):
-                pass # TODO: Write code to send a message to a moderation channel that reports a user using slurs
+            if any([True for word in content if word.lower() in ["retard", "retarded", "nigger", "nigga"]]):
+                embed = self.embeds.moderation([2, message.author])
+                channel = self.client.get_channel(self.values.get_channel("moderation_log"))
+                await channel.send(embed=embed)
             elif any([True for word in content if word.lower() in badwords]):
                 return True
 
         b = await check_for_badwords()
         if b:
-            await message.reply("Some people may not be comfortable with the use of profanity, so please be careful with your words. Thank you!")
+            await message.reply("Some people may not be comfortable with the use of profanity, so please be careful with your word choice. Thank you!")
 
         # This section of code handles reports of bad behavior
         if (message.content == "report") and (type(message.channel) == discord.DMChannel):

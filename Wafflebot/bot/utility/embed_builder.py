@@ -36,9 +36,23 @@ class EmbedBuilder:
     def moderation(self, d):
         if d[0] == 0:
             msg = d[1]
-            embed = discord.Embed(title="Incident Report", description=msg.content, color=discord.Color.orange())
+            embed = discord.Embed(
+                title="Incident Report",
+                description=msg.content,
+                color=discord.Color.orange()
+            )
             embed.set_author(name=msg.author, icon_url=msg.author.avatar_url)
             return embed
         elif d[0] == 1:
-            kb = d[1]
+            kb = d[1] # gets the value which says whether a member was kicked or blocked
             reason = d[2]
+            member = d[3]
+        elif d[0] == 2:
+            member = d[1]
+            embed = discord.Embed(
+                title="Slur report",
+                description=f"{member.mention} said a slur.",
+                color=discord.Color.orange()
+            )
+            return embed
+
