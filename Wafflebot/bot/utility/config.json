@@ -1,5 +1,5 @@
 {
-  "prefix": "ww/",
+  "prefix": ">",
   "badwords": ["fuck", "hell", "damn", "dammit", "nigger", "nigga", "asshole", "ass", "bitch", "fucking", "motherfucker", "fucker", "retard", "retarded"],
   "channels": {
     "welcome_and_goodbye": 1015694111677878343,
