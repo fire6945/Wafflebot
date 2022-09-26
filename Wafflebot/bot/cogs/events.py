@@ -3,6 +3,8 @@ from discord.ext import commands
 
 from ..utility import embed_builder, values
 
+import asyncio
+
 class Events(commands.Cog):
     """
     TODO: Finish coding all the events that the bot currently needs to support
@@ -43,7 +45,13 @@ class Events(commands.Cog):
 
         b = await check_for_badwords()
         if b:
-            await message.reply("Some people may not be comfortable with the use of profanity, so please be careful with your word choice. Thank you!")
+            r = discord.Embed(title="Some people may not be comfortable with the use of profanity, so please be careful with your word choice. Thank you!", color=discord.Color.orange())
+            await message.reply(embed=r)
+            channel: discord.TextChannel = message.channel
+            last: discord.Message = await channel.get_partial_message(message.channel.last_message_id).fetch()
+            one = last.delete(delay=3)
+            two = message.delete(delay=3)
+            await asyncio.gather(one, two)
 
         # This section of code handles reports of bad behavior
         if (message.content == "report") and (type(message.channel) == discord.DMChannel):
