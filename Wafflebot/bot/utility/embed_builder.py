@@ -44,7 +44,7 @@ class EmbedBuilder:
             embed.set_author(name=msg.author, icon_url=msg.author.avatar_url)
             return embed
         elif d[0] == 1:
-            kb = d[1] # gets the value which says whether a member was kicked or blocked
+            kb = d[1] # gets the value which says whether a member was kicked or banned
             reason = d[2]
             member = d[3]
         elif d[0] == 2:

@@ -34,5 +34,22 @@ class Utility(commands.Cog):
         embed.set_footer(text='ID: ' + str(user.id))
         await ctx.send(embed=embed)
 
+    @commands.command()
+    async def ban(self, ctx, member, *reason):
+        if not reason:
+            reason = "No reason"
+        await member.ban(reason=reason)
+
+    @commands.command()
+    async def kick(self, ctx, member, *reason):
+        if not reason:
+            reason = "No reason"
+        await member.kick(reason=reason)
+
+    @commands.command()
+    async def unban(self, ctx: discord.Guild, member: discord.User):
+        bans = await ctx.guild.bans()
+        await ctx.guild.unban([x.user for x in bans if x.user.id == member.id][0])
+
 def setup(client):
     client.add_cog(Utility(client))
