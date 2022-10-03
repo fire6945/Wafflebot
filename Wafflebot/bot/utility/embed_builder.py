@@ -33,6 +33,13 @@ class EmbedBuilder:
         )
         return embed
 
+    def good(self, message):
+        embed = discord.Embed(
+            description=message,
+            color=discord.Color.green()
+        )
+        return embed
+
     def moderation(self, d):
         if d[0] == 0:
             msg = d[1]
@@ -44,7 +51,7 @@ class EmbedBuilder:
             embed.set_author(name=msg.author, icon_url=msg.author.avatar_url)
             return embed
         elif d[0] == 1:
-            kb = d[1] # gets the value which says whether a member was kicked or banned
+            kb = d[1]
             reason = d[2]
             member = d[3]
         elif d[0] == 2:

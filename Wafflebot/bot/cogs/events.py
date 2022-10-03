@@ -14,9 +14,8 @@ class Events(commands.Cog):
     >> on_message
     >> on_member_join
     >> on_member_remove
-    >> on_member_ban
-    >> on_member_unban
 
+    The member ban and unban events are not needed, as the notification messages for such are handled in utility.py
     This cog will also log information regarding the above events to the appropriate channels.
     """
 
@@ -76,14 +75,6 @@ class Events(commands.Cog):
         embed = self.embeds.member_remove(member)
         channel = self.client.get_channel(self.values.get_channel("welcome_and_goodbye"))
         await channel.send(embed=embed)
-
-    @commands.Cog.listener()
-    async def on_member_ban(self, guild, member):
-        pass
-
-    @commands.Cog.listener()
-    async def on_member_unban(self, guild, member):
-        pass
 
 def setup(client):
     client.add_cog(Events(client))

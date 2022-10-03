@@ -1,10 +1,15 @@
 import discord
 from discord.ext import commands
 
+from ..utility import embed_builder, values
+
 class Utility(commands.Cog):
 
     def __init__(self, client):
         self.client: discord.Client = client
+        self.embeds = embed_builder.EmbedBuilder()
+        self.values = values.Values()
+        self.log = self.client.get_channel(self.values.get_channel("moderation_log"))
 
     @commands.command(aliases=['u', 'uinfo', 'user'])
     async def userinfo(self, ctx, *user: discord.Member):
@@ -35,21 +40,26 @@ class Utility(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def ban(self, ctx, member, *reason):
+    async def ban(self, ctx, member: discord.Member, *reason):
         if not reason:
             reason = "No reason"
         await member.ban(reason=reason)
+        await ctx.send(self.embeds.good(f"{member.mention} has been banned from the server."))
+        embed = self.embeds.moderation(["b", reason, member]) # TODO: Finish ban/unban/kick notification feature
+        await self.log.send()
 
     @commands.command()
-    async def kick(self, ctx, member, *reason):
+    async def kick(self, ctx, member: discord.Member, *reason):
         if not reason:
             reason = "No reason"
         await member.kick(reason=reason)
+        await ctx.send(self.embeds.good(f"{member.mention} has been kicked from the server."))
 
     @commands.command()
     async def unban(self, ctx: discord.Guild, member: discord.User):
         bans = await ctx.guild.bans()
         await ctx.guild.unban([x.user for x in bans if x.user.id == member.id][0])
+        await ctx.send(self.embeds.good(f"{member.mention} has been unbanned from the server."))
 
 def setup(client):
     client.add_cog(Utility(client))
