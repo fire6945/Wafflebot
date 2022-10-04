@@ -54,6 +54,17 @@ class EmbedBuilder:
             kb = d[1]
             reason = d[2]
             member = d[3]
+            embed = discord.Embed(
+                title=f"Member banned: {member.mention}",
+                description=f"Reason: {reason}",
+                color=discord.Color.red()
+            )
+            if kb == "k":
+                embed.title = f"Member kicked: {member.mention}"
+            elif kb == "ub":
+                embed.title = f"Member unbanned: {member.mention}. Welcome back!"
+                embed.color = discord.Color.gold()
+            return embed
         elif d[0] == 2:
             member = d[1]
             embed = discord.Embed(
