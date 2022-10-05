@@ -1,8 +1,9 @@
 import discord
 from discord.ext import commands
 
-from ..utility import embed_builder, values # just in case
+from ..utility import embed_builder, values  # just in case
 from .backend import reddit
+
 
 class Fun(commands.Cog):
 
@@ -26,5 +27,6 @@ class Fun(commands.Cog):
         )
         await ctx.send(embed=embed)
 
-def setup(self, client):
+
+def setup(client):
     client.add_cog(Fun(client))
